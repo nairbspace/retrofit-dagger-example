@@ -2,16 +2,21 @@ package com.nairbspace.retrofitdaggerexample.retrofit;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
+@Singleton
 public class ExampleInterceptor implements Interceptor {
     private static ExampleInterceptor sInterceptor;
     private String mScheme;
     private String mHost;
 
+    @Inject
     public static ExampleInterceptor get() {
         if (sInterceptor == null) {
             sInterceptor = new ExampleInterceptor();
