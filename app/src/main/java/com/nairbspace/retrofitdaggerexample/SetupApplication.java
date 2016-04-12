@@ -11,6 +11,7 @@ public class SetupApplication extends Application {
 
     private AppComponent mAppComponent;
 
+    // Convenience method for getting application context
     public static SetupApplication get(Context context) {
         return (SetupApplication) context.getApplicationContext();
     }
@@ -19,11 +20,13 @@ public class SetupApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // Create instance of AppComponent
         mAppComponent = DaggerAppComponent.builder()
                 .networkModule(new NetworkModule())
                 .build();
     }
 
+    // Getter for AppComponent
     public AppComponent getAppComponent() {
         return mAppComponent;
     }

@@ -10,6 +10,10 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * An interceptor that allows runtime changes to the API Base URL in Retrofit.
+ * The Base URL is set by calling the {@link ExampleInterceptor#setInterceptor(String)} method.
+ * */
 @Singleton
 public class ExampleInterceptor implements Interceptor {
     private static ExampleInterceptor sInterceptor;
@@ -37,6 +41,8 @@ public class ExampleInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
+
+        // If new Base URL is properly formatted than replace with old one
         if (mScheme != null && mHost != null) {
             HttpUrl newUrl = original.url().newBuilder()
                     .scheme(mScheme)

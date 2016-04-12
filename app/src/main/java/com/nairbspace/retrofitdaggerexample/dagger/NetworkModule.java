@@ -18,13 +18,13 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    ExampleInterceptor provideInterceptor() {
+    ExampleInterceptor provideInterceptor() { // This is where the Interceptor object is constructed
         return ExampleInterceptor.get();
     }
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(ExampleInterceptor interceptor) {
+    OkHttpClient provideOkHttpClient(ExampleInterceptor interceptor) { // The Interceptor is then added to the client
         return new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .build();
@@ -38,7 +38,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit.Builder provideRetrofitBuilder(Gson gson, OkHttpClient okHttpClient) {
+    Retrofit.Builder provideRetrofitBuilder(Gson gson, OkHttpClient okHttpClient) { // The Client is then added to Retrofit
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
@@ -47,7 +47,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    ExampleInterface provideExampleInterface(Retrofit.Builder builder) {
-        return builder.build().create(ExampleInterface.class);
+    ExampleInterface provideExampleInterface(Retrofit.Builder builder) { // This is where Retrofit is finally created
+        return builder.build().create(ExampleInterface.class);           // with the Interface we provided
     }
 }
